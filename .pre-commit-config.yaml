@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+        types_or:
+          - python
+          - pyi
+      - id: ruff-format
+        types_or:
+          - python
+          - pyi
+
+  - repo: local
+    hooks:
+      - id: ty-check
+        name: ty check
+        entry: ty check --ignore unresolved-attribute --ignore invalid-assignment
+        language: python
+        additional_dependencies:
+          - ismrmrd>=1.14.1
+          - numpy>=1.23,<3.0
+          - pypulseq>=1.4.2
+          - pytest
+          - ty==0.0.33
+        pass_filenames: false
+        types_or:
+          - python
+          - pyi

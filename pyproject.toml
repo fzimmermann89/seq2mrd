@@ -1,0 +1,108 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seq2mrd"
+version = "0.1.0"
+description = "Pulseq and vendor raw data conversion to ISMRMRD."
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "ismrmrd>=1.14.1",
+    "numpy>=1.23,<3.0",
+    "pypulseq>=1.4.2",
+    "typing-extensions>=4.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+    "ty",
+]
+tests = [
+    "pytest",
+]
+
+[project.scripts]
+seq2mrd = "seq2mrd.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 140
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "ARG",
+    "B",
+    "C4",
+    "COM",
+    "D",
+    "E",
+    "F",
+    "FA",
+    "I",
+    "N",
+    "NPY",
+    "RUF",
+    "S",
+    "SIM",
+    "UP",
+    "PIE",
+    "PTH",
+    "T20",
+    "Q",
+    "W",
+    "YTT",
+    "ERA",
+]
+extend-select = [
+    "ANN001",
+    "ANN201",
+    "ANN205",
+    "ANN401",
+    "BLE001",
+    "D107",
+    "D417",
+]
+ignore = [
+    "N999",
+    "COM812",
+    "SIM108",
+    "A005",
+]
+
+[tool.ruff.lint.isort]
+force-single-line = false
+split-on-trailing-comma = false
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.format]
+quote-style = "single"
+skip-magic-trailing-comma = false
+
+[tool.ty]
+
+[tool.ty.src]
+include = [
+    "src",
+]
